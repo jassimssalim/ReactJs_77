@@ -57,7 +57,7 @@ addUser({
     company: {
         name: "Test Enterprises",
         catchPhrase: "Testing the Future",
-        bs: "leverage agile frameworks",
+        bs: "agile frameworks",
     }
 });
 
