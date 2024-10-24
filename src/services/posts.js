@@ -1,41 +1,96 @@
 import { posts as data } from "../data/posts";
+import { generateId } from "../utils";
+
+
 
 //private
 let posts = [...data];
 
-function getPosts() {
+export function getPosts() {
   //get all posts
+
+  return [...posts];
 }
 
-function getPostsByUser(userId) {
+export function getPostsByUser(userId) {
   //get all posts by userId
+  return posts.filter((p) => p.userId === userId);
 }
 
-function getPostById(id) {
+export function getPostById(id) {
   //get a single post by id
+  return posts.find((p) => p.id === id);
+
+
 }
 
-function addPost(post) {
+export function addPost(post) {
   //add new post to BEGINNING of posts array
   // use generateId function and pass posts array as the argument to generate a unique id.
+  const newPost =  { id: generateId(posts), ...post };
+
+  posts.unshift(newPost);  
 }
 
-function updatePostTitle(id, title) {
-  //update post title
+export function updatePostTitle(id, title) {
+  //by title
+
+  const postResult = posts.find(p => p.id === id);
+  if (postResult) {
+    postResult.title = title;  
+    return postResult; 
+  }
+  return null;
+
 }
 
-function updatePostBody(id, body) {
+export function updatePostBody(id, body) {
   //update post body
+
+  const postResult = posts.find(p => p.id === id);
+  if (postResult) {
+    postResult.body = body;  
+    return postResult; 
+  }
+  return null;
+
 }
 
-function updatePost(id, post) {
+
+export function updatePost(id, post) {
   //update post title and or body (imagine a form where user is allowed to edit both title and post but may also choose to only edit one of them)
+
+  const postResult = posts.find(p => p.id === id);
+
+  if(postResult){
+
+    postResult.title = post.title? post.title : postResult.title;
+    postResult.body = post.body? post.body : postResult.body;
+
+
+    return postResult
+  }
+
 }
 
-function deletePostBy(id) {
-  //delete post by id
+export function deletePostBy(id) {
+  const postLenght = posts.length;
+  posts = posts.filter(p => p.id !== id);
+  if(posts < postLenght); { 
+
+    return "Post deleted successfully by ID."; 
+  } 
 }
 
-function deletePostsByUserId(userId) {
+export function deletePostsByUserId(userId) {
   //delete all posts of a user by given userId
+
+  const postLenght = posts.length;
+  posts = posts.filter(p => p.userId !== userId);
+  if(posts < postLenght); { 
+
+    return "Post deleted successfully by UserId."; 
+  } 
 }
+
+
