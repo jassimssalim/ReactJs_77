@@ -130,11 +130,11 @@ updatePost(2, { body: "New Body" });    //updating the body in one function
 
 
 
-const delById = deletePostBy(3);
-const delbyUserId = deletePostsByUserId(4);
+const delById = deletePostBy(3);  //returing the response if successfully deleted by id
+const delbyUserId = deletePostsByUserId(4); //returing the response if successfully deleted by user id
 
 
-console.log(delById)
+console.log(delById) 
 console.log(delbyUserId)
 
 
