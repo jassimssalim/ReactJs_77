@@ -134,7 +134,7 @@ const delById = deletePostBy(3);  //returing the response if successfully delete
 const delbyUserId = deletePostsByUserId(4); //returing the response if successfully deleted by user id
 
 
-console.log(delById) 
+console.log(delById)  
 console.log(delbyUserId)
 
 
