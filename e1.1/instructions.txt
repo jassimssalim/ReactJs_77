@@ -1,0 +1,2 @@
+- Implement the functionalities of the services inside the services folder
+- Import all the functions with your solution inside index.js and verify if the results are accurate
