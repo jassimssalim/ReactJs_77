@@ -28,11 +28,7 @@
     margin-bottom: 10px; 
 }
 .product-description {
-    max-height: 50px;
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    white-space: nowrap; 
-    margin: 5px 0; 
+    
 }
 
 .cart-controls {
@@ -61,3 +57,11 @@
     background-color: #007bff;
     color: white;
 }
+
+
+.description-toggle {
+    font-size: 16px;
+    color: #007bff; /* Bootstrap primary color */
+    margin-top: 5px;
+}
+
