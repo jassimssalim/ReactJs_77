@@ -2,6 +2,23 @@ import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import ProductList from './components/ProductList';
 import Cart from './components/Cart';
+import AddProduct from './components/AddProduct';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+const PRODUCTS_DATA = [
+    {
+        id: 1,
+        title: "jassim",
+        price: 109.95,
+        description: "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+        category: "men's clothing",
+        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+        rating: {
+            rate: 3.9,
+            count: 120
+        }
+    }
+];
 
 const App = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -19,61 +36,38 @@ const App = () => {
         });
     };
 
-    const increaseQuantity = (productId) => {
-        setCartItems((prevItems) =>
-            prevItems.map(item =>
-                item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item
-            )
-        );
-    };
-    const decreaseQualityProductList = (productId) => {
-        setCartItems((prevItems) =>
-            prevItems
-                .map(item =>
-                    item.productId === productId
-                        ? { ...item, quantity: item.quantity - 1 }
-                        : item
-                )
-                .filter(item => item.quantity > 0)
-        );
-    };
-    
+    // Initialize products with static PRODUCTS_DATA
+    const [products, setProducts] = useState(PRODUCTS_DATA);
 
-    const decreaseQuantity = (productId) => {
-        setCartItems((prevItems) =>
-            prevItems
-                .map(item =>
-                    item.productId === productId && item.quantity > 1 
-                        ? { ...item, quantity: item.quantity - 1 } 
-                        : item
-                )
-                .filter(item => item.quantity > 0)
-        );
-    };
-
-    const removeFromCart = (productId) => {
-        setCartItems((prevItems) => prevItems.filter(item => item.productId !== productId));
-        alert("Do you want to remove it?")
+    // Add a new product to the list
+    const onAddProduct = (newProduct) => {
+        setProducts((prevProducts) => [...prevProducts, newProduct]); // Append new product to existing ones
     };
 
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
-        <div>
+        <Router>
             <NavBar totalItems={totalItems} />
-            <ProductList 
-                addToCart={addToCart} 
-                increaseQuantity={increaseQuantity} 
-                decreaseQualityProductList={decreaseQualityProductList} 
-                cartItems={cartItems} 
-            />
-            <Cart 
-                cartItems={cartItems} 
-                removeFromCart={removeFromCart} 
-                increaseQuantity={increaseQuantity} 
-                decreaseQuantity={decreaseQuantity} 
-            />
-        </div>
+            <Routes>
+                <Route 
+                    path="/" 
+                    element={<ProductList products={products} addToCart={addToCart} cartItems={cartItems} />} 
+                />
+                <Route 
+                    path="/product-list" 
+                    element={<ProductList products={products} addToCart={addToCart} cartItems={cartItems} />} 
+                />
+                <Route 
+                    path="/cart" 
+                    element={<Cart cartItems={cartItems} />} 
+                />
+                <Route 
+                    path="/add-product" 
+                    element={<AddProduct onAddProduct={onAddProduct}/>} 
+                />
+            </Routes>
+        </Router>
     );
 };
 

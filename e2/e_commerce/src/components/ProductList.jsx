@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PRODUCTS_DATA } from '../app_source/src'; 
+import { Link } from 'react-router-dom';
 import './ProductList.css';
 
 const ProductList = ({ addToCart, cartItems, decreaseQualityProductList }) => {
@@ -13,7 +14,9 @@ const ProductList = ({ addToCart, cartItems, decreaseQualityProductList }) => {
     };
 
     return (
-        <div className="product-list">
+    <div>
+
+       <div className="product-list">
             {PRODUCTS_DATA.map(product => {
                 const itemInCart = cartItems.find(item => item.productId === product.id);
                 const isVisible = descriptionVisible[product.id]; 
@@ -21,7 +24,7 @@ const ProductList = ({ addToCart, cartItems, decreaseQualityProductList }) => {
                 return (
                     <div key={product.id} className="product-card">
                         <img src={product.image} alt={product.title} className="product-image" />
-                        <h3>{product.title}</h3>
+                        <h4 style={{ fontSize: '15px' }}>{product.title}</h4>
                         <p>₱  {product.price.toFixed(2)}</p>
 
                         <div className="description-toggle" onClick={() => toggleDescription(product.id)} style={{ cursor: 'pointer' }}>
@@ -33,7 +36,7 @@ const ProductList = ({ addToCart, cartItems, decreaseQualityProductList }) => {
                         </div>
 
                         {isVisible && (
-                            <p className="product-description">{product.description}</p>
+                            <p style =  {{ fontSize: '14px' }} className="product-description">{product.description}</p>
                         )}
 
                         {!itemInCart ? (
@@ -51,6 +54,7 @@ const ProductList = ({ addToCart, cartItems, decreaseQualityProductList }) => {
                 );
             })}
         </div>
+    </div>
     );
 };
 
